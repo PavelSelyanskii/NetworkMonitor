@@ -1,0 +1,32 @@
+﻿<Window x:Class="NetworkMonitor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"  
+    Title="Network Monitor" Height="450" Width="800">
+    <Grid>
+        <!-- ТабControl для переключения между вкладками -->
+        <TabControl>
+            <!-- Вкладка с подключениями -->
+            <TabItem Header="Подключения">
+                <DataGrid Name="ConnectionsDataGrid" Margin="10" />
+            </TabItem>
+
+            <!-- Вкладка с графиком трафика -->
+            <TabItem Header="Трафик">
+                <lvc:CartesianChart Name="TrafficChart" Margin="10">
+                    <lvc:CartesianChart.Series>
+                        <lvc:LineSeries Title="Отправлено" Values="{Binding SentData}" />
+                        <lvc:LineSeries Title="Получено" Values="{Binding ReceivedData}" />
+                    </lvc:CartesianChart.Series>
+                </lvc:CartesianChart>
+            </TabItem>
+        </TabControl>
+
+        <!-- Панель управления с кнопкой и текстовыми полями для интервала -->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Обновить" Width="100" Click="RefreshButton_Click"/>
+            <TextBlock Text="Интервал обновления (с):" VerticalAlignment="Center" Margin="10"/>
+            <TextBox Name="UpdateIntervalTextBox" Width="40" Text="1"/>
+        </StackPanel>
+    </Grid>
+</Window>
